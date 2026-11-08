@@ -1,4 +1,4 @@
-import { copyFile, mkdir } from "node:fs/promises";
+import { copyFile, cp, mkdir, rm } from "node:fs/promises";
 import * as esbuild from "esbuild";
 
 const watch = process.argv.includes("--watch");
@@ -18,10 +18,14 @@ const copyStatic = {
       if (result.errors.length > 0) return;
       await mkdir("dist", { recursive: true });
       await Promise.all(STATIC_FILES.map((f) => copyFile(f, `dist/${f.split("/").pop()}`)));
+      await cp("src/icons", "dist/icons", { recursive: true });
       console.log(`[build] ${new Date().toLocaleTimeString()} done`);
     });
   },
 };
+
+// A one-off build is what gets packaged, so it must not carry files from older builds.
+if (!watch) await rm("dist", { recursive: true, force: true });
 
 const ctx = await esbuild.context({
   entryPoints: ["src/background.ts", "src/content.ts", "src/popup/popup.ts", "src/options/options.ts"],
