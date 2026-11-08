@@ -33,7 +33,8 @@ jobs:
         run: |
           if [ "$EVENT" = "pull_request" ]; then
             range="$PR_BASE..$PR_HEAD"
-          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+          elif [ -z "$BEFORE" ] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            # New branch, or a force push left the old tip unreachable: check all of history.
             range="$AFTER"
           else
             range="$BEFORE..$AFTER"
