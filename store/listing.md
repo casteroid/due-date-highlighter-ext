@@ -36,9 +36,9 @@ Privacy
 Page text is read in your browser and never leaves it. Settings stay on your device. No accounts, no analytics, no network requests.
 ```
 
-**Homepage URL:** https://github.com/nunofaria11/due-date-highlighter-ext
+**Homepage URL:** https://github.com/casteroid/due-date-highlighter-ext
 
-**Support URL:** https://github.com/nunofaria11/due-date-highlighter-ext/issues
+**Support URL:** https://github.com/casteroid/due-date-highlighter-ext/issues
 
 ## Privacy practices tab
 
@@ -61,7 +61,7 @@ Highlights dates in the text of web pages the user enables, coloured by how many
 
 **Data usage:** Do not tick any data type. The extension reads page text locally to find dates but does not collect or transmit it, and stores only its own settings on the device. Tick all three certifications (no selling or transferring of user data, no use unrelated to the single purpose, no use for creditworthiness or lending).
 
-**Privacy policy URL:** https://github.com/nunofaria11/due-date-highlighter-ext/blob/main/PRIVACY.md
+**Privacy policy URL:** https://github.com/casteroid/due-date-highlighter-ext/blob/main/PRIVACY.md
 
 ## Distribution tab
 

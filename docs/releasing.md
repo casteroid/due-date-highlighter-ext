@@ -56,7 +56,7 @@ Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install), then:
 
 ```sh
 PROJECT_ID=due-date-highlighter          # any new or existing project
-REPO=nunofaria11/due-date-highlighter-ext
+REPO=casteroid/due-date-highlighter-ext
 SA=cws-publisher
 
 gcloud projects create "$PROJECT_ID"      # skip if it exists

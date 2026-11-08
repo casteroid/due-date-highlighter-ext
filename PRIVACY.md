@@ -9,6 +9,6 @@ Due Date Highlighter does not collect, transmit, sell or share any personal or b
 
 Uninstalling the extension deletes its stored settings.
 
-Questions: open an issue at <https://github.com/nunofaria11/due-date-highlighter-ext/issues>.
+Questions: open an issue at <https://github.com/casteroid/due-date-highlighter-ext/issues>.
 
 Last updated: 2026-11-08.
