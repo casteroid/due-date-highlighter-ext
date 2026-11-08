@@ -1,0 +1,435 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1f2328;
+  --muted: #656d76;
+  --border: #d0d7de;
+  --accent: #2563eb;
+  --warn-bg: #fef3c7;
+  --warn-text: #92400e;
+  --error: #b91c1c;
+  --ok: #166534;
+  --danger: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --warn-bg: #3b2f0b;
+    --warn-text: #fcd34d;
+    --error: #f87171;
+    --ok: #4ade80;
+    --danger: #f87171;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px 48px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.page-header,
+main {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+h2 {
+  margin: 0 0 4px;
+  font-size: 17px;
+}
+
+h3 {
+  margin: 20px 0 4px;
+  font-size: 14px;
+}
+
+h4 {
+  margin: 14px 0 6px;
+  font-size: 13px;
+}
+
+.card {
+  margin: 16px 0;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.help,
+.muted,
+.note {
+  margin: 2px 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.note {
+  margin-bottom: 10px;
+}
+
+.warning {
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: var(--warn-bg);
+  color: var(--warn-text);
+  border-radius: 6px;
+}
+
+.error {
+  margin: 4px 0;
+  color: var(--error);
+}
+
+p[hidden],
+input[hidden] {
+  display: none;
+}
+
+ul.plain {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Controls */
+
+input[type="text"],
+input[type="number"],
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+input[type="text"],
+textarea {
+  min-width: 0;
+}
+
+input[type="color"] {
+  width: 36px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
+input:disabled {
+  opacity: 0.55;
+}
+
+input.num {
+  width: 5.5em;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.danger {
+  color: var(--danger);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.grow {
+  flex: 1 1 200px;
+}
+
+/* Layout helpers */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+label.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field {
+  margin: 10px 0;
+}
+
+.field > label:not(.inline),
+.field > .label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-weight: 600;
+}
+
+.field > label.inline {
+  font-weight: 600;
+}
+
+.field > label input[type="text"],
+.field > label select {
+  font-weight: 400;
+  max-width: 560px;
+}
+
+.field > .row {
+  margin-top: 3px;
+}
+
+.field .help {
+  margin: 2px 0 0;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.tag {
+  margin-left: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 4px 1px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.chip button {
+  padding: 0 6px;
+  border: none;
+  background: none;
+  color: var(--muted);
+}
+
+/* Profiles */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  margin-bottom: -1px;
+  border-bottom-color: var(--border);
+  border-radius: 6px 6px 0 0;
+  background: var(--bg);
+}
+
+.tab.selected {
+  background: var(--card);
+  border-color: var(--border);
+  border-bottom-color: var(--card);
+  font-weight: 600;
+}
+
+.tab.add {
+  border-style: dashed;
+  color: var(--muted);
+}
+
+table.tiers {
+  width: 100%;
+  margin: 8px 0 10px;
+  border-collapse: collapse;
+}
+
+table.tiers th {
+  padding: 4px 6px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+table.tiers td {
+  padding: 4px 6px;
+  border-top: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+table.tiers td input[type="text"] {
+  width: 100%;
+  min-width: 120px;
+}
+
+table.tiers .disabled-row td:not(:first-child) {
+  opacity: 0.55;
+}
+
+td.actions {
+  white-space: nowrap;
+}
+
+td.actions button {
+  padding: 2px 7px;
+}
+
+/* Formats */
+
+ul.formats li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 4px 0;
+  border-top: 1px solid var(--border);
+}
+
+ul.formats li:first-child {
+  border-top: none;
+}
+
+.examples {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+}
+
+.custom-format {
+  margin: 8px 0;
+}
+
+.tester {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.tester h4 {
+  margin-top: 0;
+}
+
+.results li {
+  padding: 2px 0;
+}
+
+.results .ok {
+  color: var(--ok);
+}
+
+.results .bad {
+  color: var(--warn-text);
+}
+
+.results code {
+  padding: 0 4px;
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Rules */
+
+.rule {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.rule.off {
+  opacity: 0.7;
+}
+
+.rule .row {
+  margin: 0;
+}
+
+.rule .warning {
+  margin: 6px 0 0;
+}
+
+details {
+  margin-top: 8px;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.overrides {
+  padding-top: 4px;
+}
+
+.override-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 4px 24px;
+}
+
+.override {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}

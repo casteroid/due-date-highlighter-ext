@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Due Date Highlighter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header id="header"></header>
+    <p id="status" role="status"></p>
+    <div id="chips"></div>
+    <ul id="list" tabindex="0" aria-label="Dates on this page"></ul>
+    <div id="empty" hidden></div>
+    <details id="formats" hidden>
+      <summary>Formats on this page</summary>
+      <div id="format-rows"></div>
+      <button type="button" id="show-all-formats" class="link">Show all formats</button>
+    </details>
+    <footer id="footer">
+      <button type="button" id="rescan">Rescan</button>
+      <button type="button" id="settings">Settings</button>
+    </footer>
+    <script src="popup.js"></script>
+  </body>
+</html>

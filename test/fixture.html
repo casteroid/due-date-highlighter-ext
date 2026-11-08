@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Due Date Highlighter fixture</title>
+    <style>
+      body { font: 15px/1.5 system-ui, sans-serif; max-width: 920px; margin: 2rem auto; padding: 0 1rem; color: #1f2937; }
+      table { border-collapse: collapse; width: 100%; margin-bottom: 2rem; }
+      th, td { border: 1px solid #d1d5db; padding: 4px 8px; text-align: left; }
+      th { background: #f3f4f6; }
+      code { background: #f3f4f6; padding: 0 3px; }
+      .spacer { height: 40vh; }
+    </style>
+  </head>
+  <body>
+    <h1>Due Date Highlighter fixture</h1>
+    <p>Dates are written for a "today" of 2026-11-08; the marking queue below is generated relative to the real today.</p>
+
+    <h2>Mixed formats</h2>
+    <p>The report is due 2026-11-12 at the latest.</p>
+    <p>Same day, European style: 12/11/2026. Short form: Nov 12. Long form: 12 November 2026.</p>
+    <p>Kick-off was on Sun, 8 Nov 2026 in the main room.</p>
+    <p>US style (off by default, counted in the popup): 11/13/2026.</p>
+    <p>Created: 2026-10-01</p>
+    <p>Due: 2026-11-10</p>
+    <p>Order 72182780 / ref 2026102512 are identifiers, not dates.</p>
+    <p>Build stamp 20261110 (no built-in format reads it; add a custom format such as <code>(?&lt;y&gt;\d{4})(?&lt;m&gt;\d{2})(?&lt;d&gt;\d{2})</code>).</p>
+    <p>Inside code nothing is touched: <code>2026-11-12</code>.</p>
+
+    <section lang="pt">
+      <h2>Secção em português</h2>
+      <p>A reunião é a 8 de novembro de 2026 e a entrega a 12 out. 2026.</p>
+      <p>Vamos set a mesa e ver o mar; ago é só uma palavra, e out também.</p>
+    </section>
+
+    <div class="spacer"></div>
+
+    <h2>Assignments marked this week</h2>
+    <table id="marked">
+      <thead>
+        <tr><th>Student</th><th>Full name</th><th>Marked</th><th>Assignment</th><th>Type</th><th>Course</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Assignments uploaded but not yet marked</h2>
+    <table id="queue">
+      <thead>
+        <tr><th>Student</th><th>Full name</th><th>Uploaded</th><th>Assignment</th><th>Type</th><th>Course</th><th>Action</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="delayed"></div>
+
+    <script>
+      const NAMES = ["Ana Silva", "Rui Costa", "Eva Mota", "João Pires", "Marta Reis", "Tiago Lopes", "Inês Duarte", "Pedro Alves", "Sara Nunes"];
+      const fmt = (daysAgo) => {
+        const d = new Date();
+        d.setDate(d.getDate() - daysAgo);
+        return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      };
+      const row = (i, daysAgo) =>
+        `<tr><td>${72182780 + i * 17}</td><td>${NAMES[i % NAMES.length]}</td><td>${fmt(daysAgo)}</td>` +
+        `<td>Essay ${(i % 3) + 1}</td><td>File</td><td>HIST10${i % 4}</td><td><a href="#">Grade</a></td></tr>`;
+
+      document.querySelector("#marked tbody").innerHTML = [0, 3, 5].map((d, i) => row(i + 20, d)).join("");
+      document.querySelector("#queue tbody").innerHTML = [1, 2, 4, 6, 9, 12, 16, 21, 28].map((d, i) => row(i, d)).join("");
+
+      setTimeout(() => {
+        const p = document.createElement("p");
+        p.textContent = "Delayed: due 2026-11-15 and Nov 20";
+        document.getElementById("delayed").append(p);
+      }, 3000);
+    </script>
+  </body>
+</html>
