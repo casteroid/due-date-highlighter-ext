@@ -59,7 +59,7 @@ Highlights dates in the text of web pages the user enables, coloured by how many
 
 **Remote code:** No, I am not using remote code. (All code ships in the package; there is no `eval` and no remotely hosted script.)
 
-**Data usage:** Do not tick any data type. The extension reads page text locally to find dates but does not collect or transmit it, and stores only its own settings on the device. Tick all three certifications (no selling or transferring of user data, no use unrelated to the single purpose, no use for creditworthiness or lending).
+**Data usage:** Tick **Website content** only. The store requires disclosing data an extension handles even when it never leaves the device ([User Data FAQ, question 3](https://developer.chrome.com/docs/webstore/program-policies/user-data-faq)), and the extension reads page text to find dates. Nothing else applies: no personal, health, financial, authentication, location or communication data, no browsing history (site rules are patterns the user types or picks, not a record of visits), and no user activity tracking. Tick all three certifications (no selling or transferring of user data, no use unrelated to the single purpose, no use for creditworthiness or lending).
 
 **Privacy policy URL:** https://github.com/casteroid/due-date-highlighter-ext/blob/main/PRIVACY.md
 
