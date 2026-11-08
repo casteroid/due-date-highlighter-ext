@@ -1,0 +1,101 @@
+name: Release
+
+# Started by hand from the Actions tab. Works out the next version from Conventional Commits,
+# commits the version bump, tags it, creates a GitHub release with the extension zip,
+# then hands the tag to the Chrome Web Store publish workflow.
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump: auto derives it from commits since the last tag"
+        type: choice
+        options: [auto, patch, minor, major]
+        default: auto
+      dry_run:
+        description: "Dry run: only show the version and notes that would be released"
+        type: boolean
+        default: false
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm test
+
+      - name: Plan version
+        id: plan
+        env:
+          BUMP: ${{ inputs.bump }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          args=(--bump "$BUMP" --notes-file "$RUNNER_TEMP/notes.md")
+          if [ "$DRY_RUN" != "true" ]; then args+=(--apply); fi
+          node scripts/release/plan.ts "${args[@]}"
+
+      - name: Summary
+        env:
+          TAG: ${{ steps.plan.outputs.tag }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          {
+            if [ "$DRY_RUN" = "true" ]; then echo "## Dry run: would release $TAG"; else echo "## Released $TAG"; fi
+            echo
+            cat "$RUNNER_TEMP/notes.md"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Package
+        if: ${{ !inputs.dry_run }}
+        run: npm run package
+
+      - name: Commit, tag and push
+        if: ${{ !inputs.dry_run }}
+        env:
+          TAG: ${{ steps.plan.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git commit -am "chore(release): $TAG"
+          fi
+          git tag -a "$TAG" -m "$TAG"
+          git push --atomic origin HEAD:main "$TAG"
+
+      - name: Create GitHub release
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.plan.outputs.tag }}
+        run: gh release create "$TAG" release/*.zip --verify-tag --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"
+
+  publish:
+    needs: release
+    if: ${{ !inputs.dry_run }}
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}

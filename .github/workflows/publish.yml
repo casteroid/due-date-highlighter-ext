@@ -1,0 +1,65 @@
+name: Publish to Chrome Web Store
+
+# Called by the Release workflow after it creates a release. Run it by hand to retry a release tag.
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to upload and submit, e.g. v0.2.0"
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  not-configured:
+    if: vars.CWS_EXTENSION_ID == ''
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::notice::CWS_EXTENSION_ID is not set, so ${{ inputs.tag }} was not sent to the Chrome Web Store. See docs/releasing.md."
+
+  publish:
+    if: vars.CWS_EXTENSION_ID != ''
+    runs-on: ubuntu-latest
+    environment: chrome-web-store
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Download release package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "*.zip" --dir release
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/chromewebstore
+          create_credentials_file: false
+          export_environment_variables: false
+
+      - name: Upload and submit for review
+        env:
+          CWS_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          CWS_PUBLISHER_ID: ${{ vars.CWS_PUBLISHER_ID }}
+          CWS_EXTENSION_ID: ${{ vars.CWS_EXTENSION_ID }}
+          CWS_PUBLISH_TYPE: ${{ vars.CWS_PUBLISH_TYPE }}
+          TAG: ${{ inputs.tag }}
+        run: CWS_EXPECTED_VERSION="${TAG#v}" node scripts/release/cws.ts release/*.zip
