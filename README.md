@@ -5,11 +5,16 @@ A Chrome (Manifest V3) extension that finds dates in web pages, works out how ma
 ## Build
 
 ```sh
-npm install
+npm install        # Node 22.18 or newer
 npm run build      # type-checks, then bundles into dist/
 npm run dev        # rebuilds dist/ on every change (unminified, inline source maps)
 npm test           # vitest
+npm run package    # build and zip dist/ into release/due-date-highlighter-<version>.zip
 ```
+
+## Contributing and releases
+
+Commits follow Conventional Commits, which drive the version number: see [CONTRIBUTING.md](CONTRIBUTING.md). Releases to the Chrome Web Store are started by hand from the GitHub Actions tab: see [docs/releasing.md](docs/releasing.md), which also covers the first store submission. Store listing copy and screenshots live in [`store/`](store/listing.md); the privacy policy is [PRIVACY.md](PRIVACY.md).
 
 ## Load it in Chrome
 
@@ -35,6 +40,8 @@ src/content.ts content script: resolves settings for the page, runs the scanner,
 src/background.ts service worker: keeps the registered content script in line with the site rules
 src/popup/     the toolbar popup
 src/options/   the options page
+src/icons/     toolbar and store icons (source: assets/icon.svg)
+scripts/release/  version planning, commit checks and Chrome Web Store upload, run by the GitHub workflows
 ```
 
 - `formats.ts`: the registry of built-in date detectors. Each detector is a regular expression with guards that forbid a letter or digit on either side, so IDs such as `72182780` never match. `find(text, ctx)` takes a context with the page language, the month and weekday name tables, the ambiguous-numeric preference and today's date. `natural` uses chrono-node's parser for the page language and keeps only relative phrases.
