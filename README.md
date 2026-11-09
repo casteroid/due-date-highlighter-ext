@@ -40,7 +40,7 @@ src/content.ts content script: resolves settings for the page, runs the scanner,
 src/background.ts service worker: keeps the registered content script in line with the site rules
 src/popup/     the toolbar popup
 src/options/   the options page
-src/icons/     toolbar and store icons (source: assets/icon.svg)
+src/icons/     toolbar and store icons, rendered by scripts/icons.mjs (npm run icons)
 scripts/release/  version planning, commit checks and Chrome Web Store upload, run by the GitHub workflows
 ```
 
