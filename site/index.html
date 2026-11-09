@@ -37,26 +37,20 @@
 
       <section id="try">
         <h2>Try it here</h2>
-        <p>The task list below uses relative phrases, so it never goes out of date. To colour it:</p>
-        <ol class="steps">
-          <li>Open the popup and pick <strong>Enable on this page only</strong>.</li>
-          <li>Open <strong>Formats on this page</strong>, click <strong>Show all formats</strong> and switch on <code>tomorrow</code>. Relative phrases are off by default.</li>
-        </ol>
+        <p>Open the popup and pick <strong>Enable on this page only</strong>. The dates below light up.</p>
         <table class="demo">
           <thead>
             <tr><th>Task</th><th>Due</th></tr>
           </thead>
           <tbody>
-            <tr><td>Renew the TLS certificate</td><td>2 weeks ago</td></tr>
-            <tr><td>Send the invoice</td><td>yesterday</td></tr>
-            <tr><td>Review the pull request</td><td>today</td></tr>
-            <tr><td>Book the venue</td><td>tomorrow</td></tr>
-            <tr><td>Submit the report</td><td>in 3 days</td></tr>
-            <tr><td>Plan the sprint</td><td>in 6 days</td></tr>
-            <tr><td>File the taxes</td><td>in 3 weeks</td></tr>
+            <tr><td>Renew the TLS certificate</td><td>{{date:-5:mdy}}</td></tr>
+            <tr><td>Send the invoice</td><td>{{date:-1:iso}}</td></tr>
+            <tr><td>Review the pull request</td><td>{{date:0:weekday}}</td></tr>
+            <tr><td>Book the venue</td><td>{{date:2:dmy}}</td></tr>
+            <tr><td>Plan the sprint</td><td>{{date:5:pt}}</td></tr>
           </tbody>
         </table>
-        <p class="note">The last row falls in the Later tier, which is off until you switch it on in the options page. The dates in code samples elsewhere on this page stay plain on purpose: the extension skips <code>code</code>, <code>pre</code> and form fields.</p>
+        <p class="note">Dates in code samples elsewhere on this page stay plain on purpose: the extension skips <code>code</code>, <code>pre</code> and form fields.</p>
       </section>
 
       <section id="features">

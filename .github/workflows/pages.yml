@@ -3,7 +3,10 @@ name: Pages
 on:
   push:
     branches: [main]
-    paths: [site/**, store/screenshots/**, src/icons/**, .github/workflows/pages.yml]
+    paths: [site/**, scripts/site.mjs, store/screenshots/**, src/icons/**, .github/workflows/pages.yml]
+  # Daily rebuild so the dates in the "Try it here" demo stay relative to today.
+  schedule:
+    - cron: "5 0 * * *"
   workflow_dispatch:
 
 permissions:
@@ -23,6 +26,10 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
 
       - uses: actions/configure-pages@v6
         with:
