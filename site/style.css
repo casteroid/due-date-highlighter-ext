@@ -151,6 +151,7 @@ code {
 .button,
 .card,
 .recipe,
+.demo,
 .shot {
   border: 3px solid var(--border);
   box-shadow: 6px 6px 0 var(--border);
@@ -284,6 +285,24 @@ dd {
 .note {
   margin-bottom: 0;
   color: var(--muted);
+}
+
+.demo {
+  border-collapse: collapse;
+  background: var(--surface);
+  margin: 1.5rem 0;
+}
+
+.demo th,
+.demo td {
+  text-align: left;
+  padding: 0.4rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo th {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .tips {
