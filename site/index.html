@@ -43,11 +43,11 @@
             <tr><th>Task</th><th>Due</th></tr>
           </thead>
           <tbody>
-            <tr><td>Renew the TLS certificate</td><td>{{date:-5:mdy}}</td></tr>
-            <tr><td>Send the invoice</td><td>{{date:-1:iso}}</td></tr>
-            <tr><td>Review the pull request</td><td>{{date:0:weekday}}</td></tr>
-            <tr><td>Book the venue</td><td>{{date:2:dmy}}</td></tr>
-            <tr><td>Plan the sprint</td><td>{{date:5:pt}}</td></tr>
+            <tr><td>Renew the TLS certificate</td><td><time data-days="-5" data-format="mdy"></time></td></tr>
+            <tr><td>Send the invoice</td><td><time data-days="-1" data-format="iso"></time></td></tr>
+            <tr><td>Review the pull request</td><td><time data-days="0" data-format="weekday"></time></td></tr>
+            <tr><td>Book the venue</td><td><time data-days="2" data-format="dmy"></time></td></tr>
+            <tr><td>Plan the sprint</td><td><time data-days="5" data-format="pt"></time></td></tr>
           </tbody>
         </table>
         <p class="note">Dates in code samples elsewhere on this page stay plain on purpose: the extension skips <code>code</code>, <code>pre</code> and form fields.</p>
@@ -179,7 +179,27 @@
         <a href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Chrome Web Store</a> ·
         <a href="https://github.com/casteroid/due-date-highlighter-ext/issues">Issues</a>
       </p>
-      <p>No cookies, no scripts, no tracking on this page either.</p>
+      <p>No cookies and no tracking on this page either. Its one script writes today's dates into the demo.</p>
     </footer>
+    <script>
+      // Hand-rolled rather than Intl: each output must match a format the extension recognises.
+      const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const MONTHS_PT = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+      const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const pad = (n) => String(n).padStart(2, "0");
+      const FORMATS = {
+        iso: (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`,
+        mdy: (d) => `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`,
+        dmy: (d) => `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`,
+        weekday: (d) => `${WEEKDAYS[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`,
+        pt: (d) => `${d.getDate()} de ${MONTHS_PT[d.getMonth()]} de ${d.getFullYear()}`,
+      };
+      const today = new Date();
+      for (const el of document.querySelectorAll("time[data-days]")) {
+        const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + Number(el.dataset.days));
+        el.dateTime = FORMATS.iso(d);
+        el.textContent = FORMATS[el.dataset.format](d);
+      }
+    </script>
   </body>
 </html>
