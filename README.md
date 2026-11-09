@@ -2,6 +2,8 @@
 
 A Chrome (Manifest V3) extension that finds dates in web pages, works out how many days away each one is, and colours it by a priority tier you configure. It runs only on the sites and pages you turn it on for. Everything is stored in `chrome.storage.local`; there is no backend, no sync and no network access.
 
+Landing page: <https://casteroid.github.io/due-date-highlighter-ext/> (source in [site/](site/), deployed by the Pages workflow on every push to main that touches it).
+
 ## Build
 
 ```sh

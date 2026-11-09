@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="Highlights dates on the pages you choose, coloured by how close they are.">
+    <title>Due Date Highlighter</title>
+    <link rel="icon" href="img/icon-32.png">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <img class="icon" src="img/icon-128.png" alt="" width="64" height="64">
+        <h1>Due Date Highlighter</h1>
+        <p class="stripe" aria-hidden="true"><span class="red"></span><span class="orange"></span><span class="yellow"></span></p>
+        <p class="tagline">Dates on the pages you choose, coloured by how close they are.</p>
+        <p class="actions">
+          <a class="button" href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Install from the Chrome Web Store</a>
+          <a class="button" href="https://github.com/casteroid/due-date-highlighter-ext">Source on GitHub</a>
+        </p>
+      </header>
+
+      <section id="how">
+        <h2>How it works</h2>
+        <ol class="steps">
+          <li>Open the popup on a site and pick <strong>Enable on this site</strong> or <strong>Enable on this page only</strong>. Chrome asks for access to that origin only.</li>
+          <li>Every date on the page gets a colour from a tier profile: <span class="tag red">Overdue</span> <span class="tag orange">Today</span> <span class="tag orange">Next 3 days</span> <span class="tag yellow">This week</span>. The <span class="tag">Later</span> tier is there too, switched off by default.</li>
+          <li>Open the popup again to list every date on the page in order. Click one to jump to it, filter by tier, and switch formats on or off for that site.</li>
+        </ol>
+        <figure>
+          <img class="shot" src="img/1-due-dates.png" alt="A task list with overdue dates in red, today in orange and this week in yellow, next to the popup listing every date." width="1280" height="800">
+          <figcaption>A task list on the "Due dates" profile, with the popup listing every date.</figcaption>
+        </figure>
+      </section>
+
+      <section id="features">
+        <h2>What it does</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Many formats</h3>
+            <p><code>2026-10-25</code>, <code>Oct 25, 2026</code>, <code>25 October 2026</code>, <code>25/10/2026</code>, <code>Sun, 25 Oct 2026</code>, <code>Oct 25</code>, and month names in Portuguese, German, French, Spanish and Italian. Optional: US month-first dates, two-digit years, and relative phrases like "tomorrow" or "next Friday".</p>
+          </article>
+          <article class="card">
+            <h3>Tiers you control</h3>
+            <p>Day ranges, colours, style (background, underline, outline or badge) and a "+3d" or "3d ago" badge.</p>
+          </article>
+          <article class="card">
+            <h3>Two profiles</h3>
+            <p>"Due dates" for upcoming deadlines and "Waiting time" for queues where you care how long something has been waiting. Pick a profile per site.</p>
+          </article>
+          <article class="card">
+            <h3>Popup list</h3>
+            <p>Every date on the page, in order. Click one to scroll to it, filter by tier, and switch individual formats on or off for that site.</p>
+          </article>
+          <article class="card">
+            <h3>Context rules</h3>
+            <p>Only highlight dates near words like "due" or "deadline", under a table column such as "Uploaded", or under a given heading. Skip dates near "created" or "posted".</p>
+          </article>
+          <article class="card">
+            <h3>Custom formats</h3>
+            <p>A regular expression with named groups for anything unusual, checked against your own samples in a live tester.</p>
+          </article>
+        </div>
+        <figure>
+          <img class="shot" src="img/3-options.png" alt="The options page with tier profiles, date formats and site rules." width="1280" height="800">
+          <figcaption>The options page: tier profiles, formats, context and site rules.</figcaption>
+        </figure>
+      </section>
+
+      <section id="recipes">
+        <h2>Setup recipes</h2>
+        <p>Each recipe starts from the defaults. Add the rule under <strong>Site rules</strong> → <strong>Add rule</strong> in the options page, or from the popup with <strong>Enable on this site</strong>, then expand the rule to set its overrides.</p>
+
+        <article class="recipe">
+          <h3>Teacher marking a queue</h3>
+          <p>You want to see which uploads have waited longest, and nothing else on the page.</p>
+          <div class="recipe-body">
+            <dl>
+              <dt>Rule</dt><dd>the LMS host, e.g. <code>lms.example.edu</code></dd>
+              <dt>Profile</dt><dd>"Waiting time"</dd>
+              <dt>Context keywords</dt><dd><code>uploaded</code></dd>
+              <dt>Context parts</dt><dd>"Table column header" on, "Nearest heading above" on</dd>
+            </dl>
+            <figure>
+              <img class="shot" src="img/2-marking-queue.png" alt="An LMS marking page where only the Uploaded column of the not-yet-marked table is coloured by age." width="1280" height="800">
+              <figcaption>Only the Uploaded column of the "not yet marked" table is coloured by age. Student IDs never match.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="recipe">
+          <h3>Project manager on an issue tracker</h3>
+          <p>You want deadlines in issues to stand out, not every created or updated stamp.</p>
+          <dl>
+            <dt>Rule</dt><dd><code>https://github.com/myorg/*/issues*</code> (a URL prefix with wildcards; query and hash are ignored)</dd>
+            <dt>Profile</dt><dd>"Due dates"</dd>
+            <dt>Context keywords</dt><dd><code>due, deadline</code></dd>
+            <dt>Ignore keywords</dt><dd><code>created, updated, opened</code></dd>
+          </dl>
+          <p class="note">One rule per tracker path keeps the rest of the host untouched.</p>
+        </article>
+
+        <article class="recipe">
+          <h3>Student on a course portal</h3>
+          <p>You want every deadline in view, including the ones weeks away and the ones written as words.</p>
+          <dl>
+            <dt>Rule</dt><dd>the portal host, e.g. <code>portal.example.edu</code></dd>
+            <dt>Profile</dt><dd>"Due dates", with its "Later" tier switched on so far-off deadlines show green</dd>
+            <dt>Formats</dt><dd><code>tomorrow</code> on for that site, from the popup's "Formats on this page" or the rule's format override, so "next Friday" and "in 3 days" count</dd>
+          </dl>
+        </article>
+
+        <article class="recipe">
+          <h3>Finance or ops on a US-formatted admin table</h3>
+          <p>Your admin tool writes <code>10/25/2026</code> and compact stamps like <code>20261025</code>.</p>
+          <dl>
+            <dt>Rule</dt><dd>the admin host, e.g. <code>admin.example.com</code></dd>
+            <dt>Formats</dt><dd><code>10/25/2026</code> on and <code>25/10/2026</code> off for that site; optionally <code>25/10/26</code> on for two-digit years</dd>
+            <dt>Ambiguous numeric dates</dt><dd>"Month first" on the rule</dd>
+            <dt>Custom formats</dt><dd>label <code>yyyymmdd</code>, pattern <code>(?&lt;y&gt;\d{4})(?&lt;m&gt;\d{2})(?&lt;d&gt;\d{2})</code></dd>
+          </dl>
+        </article>
+
+        <article class="recipe">
+          <h3>Multilingual intranet reader</h3>
+          <p>Your intranet mixes English and Portuguese, or German, French, Spanish or Italian.</p>
+          <dl>
+            <dt>Rule</dt><dd>the intranet host; nothing else to set</dd>
+            <dt>Full dates</dt><dd>month names in all five languages are on by default: <code>25 de outubro de 2026</code>, <code>25. Oktober 2026</code>, <code>12 out. 2026</code></dd>
+            <dt>Short dates</dt><dd>a short month name without a year counts only in the page's own language, read from its <code>lang</code> attribute: <code>12 out</code> on a Portuguese page, <code>5 Mar</code> on an English one</dd>
+          </dl>
+          <p class="note">If the intranet uses one language, set "Page languages" on the rule to just that one, e.g. <code>pt</code>, so month names from the other languages are never read. English is always on.</p>
+        </article>
+      </section>
+
+      <section id="tips">
+        <h2>Tips</h2>
+        <ul class="tips">
+          <li>Use <strong>Enable on this page only</strong> for one noisy URL instead of a whole host.</li>
+          <li>Rule patterns: <code>example.com</code> is that host, <code>localhost:8080</code> that port, <code>*.example.com</code> the domain and all subdomains, <code>https://host/path/*</code> a URL prefix. The most specific enabled rule wins.</li>
+          <li>The toggles under "Formats on this page" in the popup write an override on that site's rule only.</li>
+          <li>Tiers are checked top to bottom and the first match wins. The options page warns about overlaps and gaps.</li>
+          <li>Each profile picks its badge text: "Signed: -3d / +5d" or "Ago: 3d ago / in 5d".</li>
+          <li>Press <strong>Rescan</strong> in the popup after a page changes without a navigation.</li>
+          <li>Unwrapping restores the page byte for byte, so <strong>Disable here</strong> leaves no trace.</li>
+        </ul>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy</h2>
+        <p>The extension does nothing until you turn it on for a site or a single page from the popup. It then asks Chrome for access to that site only, and releases the access when you turn it off. Page text is read in your browser and never leaves it: no accounts, no analytics, no network requests.</p>
+        <p><a href="https://github.com/casteroid/due-date-highlighter-ext/blob/main/PRIVACY.md">Read the privacy policy</a></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        <a href="https://github.com/casteroid/due-date-highlighter-ext">GitHub</a> ·
+        <a href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Chrome Web Store</a> ·
+        <a href="https://github.com/casteroid/due-date-highlighter-ext/issues">Issues</a>
+      </p>
+      <p>No cookies, no scripts, no tracking on this page either.</p>
+    </footer>
+  </body>
+</html>
