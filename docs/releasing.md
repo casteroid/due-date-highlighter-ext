@@ -56,7 +56,6 @@ Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
 
 Done on 2026-11-09 in project `chrome-web-store-api-258321` (number `171512527082`), shared with `copy-title-url-ext`: service account `cws-publisher` (one per publisher, already linked to the store), pool `github`, provider `due-date-highlighter`, and four of the five repository variables. `CWS_EXTENSION_ID` is set after the first dashboard upload. Keep the commands for a rebuild; the service-account and pool steps are only needed once per publisher, the provider and binding once per repository.
 
-
 ```sh
 PROJECT_ID=chrome-web-store-api-258321   # the project linked to the publisher
 REPO=casteroid/due-date-highlighter-ext
