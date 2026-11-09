@@ -35,16 +35,40 @@
         </figure>
       </section>
 
+      <section id="try">
+        <h2>Try it here</h2>
+        <p>The task list below uses relative phrases, so it never goes out of date. To colour it:</p>
+        <ol class="steps">
+          <li>Open the popup and pick <strong>Enable on this page only</strong>.</li>
+          <li>Open <strong>Formats on this page</strong>, click <strong>Show all formats</strong> and switch on <code>tomorrow</code>. Relative phrases are off by default.</li>
+        </ol>
+        <table class="demo">
+          <thead>
+            <tr><th>Task</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Renew the TLS certificate</td><td>2 weeks ago</td></tr>
+            <tr><td>Send the invoice</td><td>yesterday</td></tr>
+            <tr><td>Review the pull request</td><td>today</td></tr>
+            <tr><td>Book the venue</td><td>tomorrow</td></tr>
+            <tr><td>Submit the report</td><td>in 3 days</td></tr>
+            <tr><td>Plan the sprint</td><td>in 6 days</td></tr>
+            <tr><td>File the taxes</td><td>in 3 weeks</td></tr>
+          </tbody>
+        </table>
+        <p class="note">The last row falls in the Later tier, which is off until you switch it on in the options page. The dates in code samples elsewhere on this page stay plain on purpose: the extension skips <code>code</code>, <code>pre</code> and form fields.</p>
+      </section>
+
       <section id="features">
         <h2>What it does</h2>
         <div class="cards">
           <article class="card">
             <h3>Many formats</h3>
-            <p><code>2026-10-25</code>, <code>Oct 25, 2026</code>, <code>25 October 2026</code>, <code>25/10/2026</code>, <code>Sun, 25 Oct 2026</code>, <code>Oct 25</code>, and month names in Portuguese, German, French, Spanish and Italian. Optional: US month-first dates, two-digit years, and relative phrases like "tomorrow" or "next Friday".</p>
+            <p><code>2026-10-25</code>, <code>Oct 25, 2026</code>, <code>25 October 2026</code>, <code>25/10/2026</code>, <code>Sun, 25 Oct 2026</code>, <code>Oct 25</code>, and month names in Portuguese, German, French, Spanish and Italian. Optional: US month-first dates, two-digit years, and relative phrases like <code>tomorrow</code> or <code>next Friday</code>.</p>
           </article>
           <article class="card">
             <h3>Tiers you control</h3>
-            <p>Day ranges, colours, style (background, underline, outline or badge) and a "+3d" or "3d ago" badge.</p>
+            <p>Day ranges, colours, style (background, underline, outline or badge) and a <code>+3d</code> or <code>3d ago</code> badge.</p>
           </article>
           <article class="card">
             <h3>Two profiles</h3>
@@ -108,7 +132,7 @@
           <dl>
             <dt>Rule</dt><dd>the portal host, e.g. <code>portal.example.edu</code></dd>
             <dt>Profile</dt><dd>"Due dates", with its "Later" tier switched on so far-off deadlines show green</dd>
-            <dt>Formats</dt><dd><code>tomorrow</code> on for that site, from the popup's "Formats on this page" or the rule's format override, so "next Friday" and "in 3 days" count</dd>
+            <dt>Formats</dt><dd><code>tomorrow</code> on for that site, from the popup's "Formats on this page" or the rule's format override, so <code>next Friday</code> and <code>in 3 days</code> count</dd>
           </dl>
         </article>
 
@@ -142,7 +166,7 @@
           <li>Rule patterns: <code>example.com</code> is that host, <code>localhost:8080</code> that port, <code>*.example.com</code> the domain and all subdomains, <code>https://host/path/*</code> a URL prefix. The most specific enabled rule wins.</li>
           <li>The toggles under "Formats on this page" in the popup write an override on that site's rule only.</li>
           <li>Tiers are checked top to bottom and the first match wins. The options page warns about overlaps and gaps.</li>
-          <li>Each profile picks its badge text: "Signed: -3d / +5d" or "Ago: 3d ago / in 5d".</li>
+          <li>Each profile picks its badge text: "Signed" (<code>-3d</code>, <code>+5d</code>) or "Ago" (<code>3d ago</code>, <code>in 5d</code>).</li>
           <li>Press <strong>Rescan</strong> in the popup after a page changes without a navigation.</li>
           <li>Unwrapping restores the page byte for byte, so <strong>Disable here</strong> leaves no trace.</li>
         </ul>
