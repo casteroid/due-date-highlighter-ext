@@ -52,14 +52,17 @@ The Publish workflow authenticates to the Chrome Web Store API as a Google Cloud
 
 ### 1. Google Cloud service account
 
-Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install), then:
+Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
+
+Done on 2026-11-09 in project `chrome-web-store-api-258321` (number `171512527082`), shared with `copy-title-url-ext`: service account `cws-publisher` (one per publisher, already linked to the store), pool `github`, provider `due-date-highlighter`, and four of the five repository variables. `CWS_EXTENSION_ID` is set after the first dashboard upload. Keep the commands for a rebuild; the service-account and pool steps are only needed once per publisher, the provider and binding once per repository.
+
 
 ```sh
-PROJECT_ID=due-date-highlighter          # any new or existing project
+PROJECT_ID=chrome-web-store-api-258321   # the project linked to the publisher
 REPO=casteroid/due-date-highlighter-ext
 SA=cws-publisher
 
-gcloud projects create "$PROJECT_ID"      # skip if it exists
+gcloud projects create "$PROJECT_ID"      # only for a brand-new project
 gcloud config set project "$PROJECT_ID"
 PROJECT_NUMBER=$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')
 
