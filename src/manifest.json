@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Due Date Highlighter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Highlights dates on the pages you choose, coloured by how close they are.",
   "permissions": ["storage", "activeTab", "scripting"],
   "optional_host_permissions": ["<all_urls>"],
