@@ -36,7 +36,7 @@ The Chrome Web Store only accepts a package whose version is higher than the las
 
 ## First submission (once, by hand)
 
-The store API can update an item but cannot create one. The first version goes through the Developer Dashboard.
+Done: v0.1.0 is published as item `abeojlfjcpibpelopknihgfpplmkonof` (<https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof>). The steps stay for reference; the store API can update an item but cannot create one, so a first version always goes through the Developer Dashboard.
 
 1. **Developer account.** Register at the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/) (one-time USD 5 fee). Turn on [2-step verification](https://myaccount.google.com/signinoptions/two-step-verification) for the Google account; publishing requires it. Under **Account**, fill in the publisher name and contact email and verify the email.
 2. **Create the first release.** In GitHub, open **Actions → Release → Run workflow**, keep `bump = auto`, run it once with **dry run** to check, then again without. It tags `v0.1.0` and creates a GitHub release with `due-date-highlighter-0.1.0.zip`. The Publish job says `CWS_EXTENSION_ID is not set` and skips; that is expected.
@@ -54,7 +54,7 @@ The Publish workflow authenticates to the Chrome Web Store API as a Google Cloud
 
 Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
 
-Done on 2026-11-09 in project `chrome-web-store-api-258321` (number `171512527082`), shared with `copy-title-url-ext`: service account `cws-publisher` (one per publisher, already linked to the store), pool `github`, provider `due-date-highlighter`, and four of the five repository variables. `CWS_EXTENSION_ID` is set after the first dashboard upload. Keep the commands for a rebuild; the service-account and pool steps are only needed once per publisher, the provider and binding once per repository.
+Done on 2026-11-09 in project `chrome-web-store-api-258321` (number `171512527082`), shared with `copy-title-url-ext`: service account `cws-publisher` (one per publisher, already linked to the store), pool `github`, provider `due-date-highlighter`, and all five repository variables. Keep the commands for a rebuild; the service-account and pool steps are only needed once per publisher, the provider and binding once per repository.
 
 ```sh
 PROJECT_ID=chrome-web-store-api-258321   # the project linked to the publisher
