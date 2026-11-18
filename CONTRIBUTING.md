@@ -35,7 +35,7 @@ feat(storage)!: store tier colours as CSS custom properties
 BREAKING CHANGE: settings exported from 0.x cannot be imported.
 ```
 
-Rules the checker enforces (`npm run lint:commits -- <range>`):
+Rules the checker enforces (the `lint-commits` action from [casteroid/webext-release](https://github.com/casteroid/webext-release)):
 
 - The type is lower case and one of the types in the table.
 - There is exactly one space after the colon and the subject is not empty.

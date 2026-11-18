@@ -24,22 +24,7 @@ jobs:
       - run: npm ci
 
       - name: Check commit messages
-        env:
-          EVENT: ${{ github.event_name }}
-          PR_BASE: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD: ${{ github.event.pull_request.head.sha }}
-          BEFORE: ${{ github.event.before }}
-          AFTER: ${{ github.sha }}
-        run: |
-          if [ "$EVENT" = "pull_request" ]; then
-            range="$PR_BASE..$PR_HEAD"
-          elif [ -z "$BEFORE" ] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
-            # New branch, or a force push left the old tip unreachable: check all of history.
-            range="$AFTER"
-          else
-            range="$BEFORE..$AFTER"
-          fi
-          npm run lint:commits -- "$range"
+        uses: casteroid/webext-release/lint-commits@6d7e6dc000cfd09f1642b0182ec57912c68b9d2c # v1.0.1
 
       - run: npm test
 

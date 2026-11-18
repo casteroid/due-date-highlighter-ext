@@ -16,7 +16,7 @@ npm run package    # build and zip dist/ into release/due-date-highlighter-<vers
 
 ## Contributing and releases
 
-Commits follow Conventional Commits, which drive the version number: see [CONTRIBUTING.md](CONTRIBUTING.md). Releases to the Chrome Web Store are started by hand from the GitHub Actions tab: see [docs/releasing.md](docs/releasing.md), which also covers the first store submission. Store listing copy and screenshots live in [`store/`](store/listing.md); the privacy policy is [PRIVACY.md](PRIVACY.md).
+Commits follow Conventional Commits, which drive the version number: see [CONTRIBUTING.md](CONTRIBUTING.md). Releases to the Chrome Web Store are started by hand from the GitHub Actions tab and run by the shared workflows in [casteroid/webext-release](https://github.com/casteroid/webext-release): see [docs/releasing.md](docs/releasing.md). Store listing copy and screenshots live in [`store/`](store/listing.md); the privacy policy is [PRIVACY.md](PRIVACY.md).
 
 ## Load it in Chrome
 
@@ -43,7 +43,6 @@ src/background.ts service worker: keeps the registered content script in line wi
 src/popup/     the toolbar popup
 src/options/   the options page
 src/icons/     toolbar and store icons, rendered by scripts/icons.mjs (npm run icons)
-scripts/release/  version planning, commit checks and Chrome Web Store upload, run by the GitHub workflows
 ```
 
 - `formats.ts`: the registry of built-in date detectors. Each detector is a regular expression with guards that forbid a letter or digit on either side, so IDs such as `72182780` never match. `find(text, ctx)` takes a context with the page language, the month and weekday name tables, the ambiguous-numeric preference and today's date. `natural` uses chrono-node's parser for the page language and keeps only relative phrases.
