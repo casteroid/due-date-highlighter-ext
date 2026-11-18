@@ -9,10 +9,11 @@ The workflows here are thin callers of the shared ones in [casteroid/webext-rele
 | `.github/workflows/ci.yml` | push to `main`, pull requests | Checks commit messages, runs tests, builds and uploads the zip as an artifact |
 | `.github/workflows/release.yml` | manual (Actions tab) | Runs `npm test`, picks the version, commits it, tags `vX.Y.Z`, creates the GitHub release with the zip, then uploads it to the Chrome Web Store |
 | `.github/workflows/publish.yml` | manual with a tag | Uploads an existing release to the Chrome Web Store again |
+| `.github/workflows/build.yml` | manual with a tag | Rebuilds the zip of an existing release and keeps it as a run artifact; touches neither the release nor the store |
 
 The package is `release/due-date-highlighter-<version>.zip`, built by `npm run package`.
 
-The workflows pin webext-release to a full commit SHA, with the tag in a comment. Dependabot opens a pull request when a new tag is out; update all three files together.
+The workflows pin webext-release to a full commit SHA, with the tag in a comment. Dependabot opens a pull request when a new tag is out; update all four files together.
 
 ## Listing
 
@@ -34,3 +35,5 @@ Done, following the [webext-release store setup](https://github.com/casteroid/we
 3. Watch the review in the Chrome dashboard. With `DEFAULT_PUBLISH` the version goes live as soon as it is approved.
 
 To retry the store upload for an existing release (for example after fixing a variable), run **Actions → Publish** with the tag, e.g. `v0.2.0`.
+
+To get the zip of an existing release rebuilt from its tag, run **Actions → Build** with the tag. The zip is the `chrome-vX.Y.Z` artifact on the run page.

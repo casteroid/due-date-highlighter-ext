@@ -1,0 +1,26 @@
+name: Build
+
+# Rebuilds the Chrome zip of an existing release tag and keeps it as a workflow run artifact. Touches neither the
+# GitHub release nor the Chrome Web Store. See https://github.com/casteroid/webext-release.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to build, e.g. v0.2.0"
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    permissions:
+      contents: read
+    uses: casteroid/webext-release/.github/workflows/build.yml@cce3e9d7c8428199bc30ea8b80f19d4533cac581 # v1.1.0
+    with:
+      tag: ${{ inputs.tag }}
+      manifest: src/manifest.json
+      package: npm run package
+      artifacts: release/*.zip
+      chrome-package: "*.zip"
