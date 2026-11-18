@@ -49,9 +49,9 @@ Only the release workflow writes `chore(release): vX.Y.Z` commits and changes th
 
 ```sh
 npm install
-npm run dev        # watch build into dist/
+npm run dev chrome # or firefox; watch build into dist/<vendor>/
 npm test           # unit tests
-npm run package    # type-check, build and zip into release/
+npm run package    # type-check, build and zip both browsers into release/
 ```
 
 See [README.md](README.md) for loading the extension and the architecture, and [docs/releasing.md](docs/releasing.md) for releases.

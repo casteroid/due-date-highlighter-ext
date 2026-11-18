@@ -1,7 +1,7 @@
 name: Build
 
-# Rebuilds the Chrome zip of an existing release tag and keeps it as a workflow run artifact. Touches neither the
-# GitHub release nor the Chrome Web Store. See https://github.com/casteroid/webext-release.
+# Rebuilds the Chrome zip and/or the Firefox xpi of an existing release tag and keeps them as workflow run artifacts.
+# Touches neither the GitHub release nor the stores. See https://github.com/casteroid/webext-release.
 on:
   workflow_dispatch:
     inputs:
@@ -9,6 +9,11 @@ on:
         description: "Release tag to build, e.g. v0.2.0"
         type: string
         required: true
+      browser:
+        description: "Packages to build"
+        type: choice
+        options: [both, chrome, firefox]
+        default: both
 
 permissions:
   contents: read
@@ -22,5 +27,6 @@ jobs:
       tag: ${{ inputs.tag }}
       manifest: src/manifest.json
       package: npm run package
-      artifacts: release/*.zip
-      chrome-package: "*.zip"
+      artifacts: release/*
+      chrome-package: ${{ inputs.browser != 'firefox' && '*.zip' || '' }}
+      firefox-package: ${{ inputs.browser != 'chrome' && '*.xpi' || '' }}
