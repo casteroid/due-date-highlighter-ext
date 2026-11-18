@@ -168,7 +168,7 @@ code {
   letter-spacing: 0.05em;
 }
 
-.button:first-child {
+.button.primary {
   background: var(--orange);
   color: #111;
 }
@@ -177,13 +177,19 @@ code {
   color: inherit;
 }
 
-.button:first-child:hover {
+.button.primary:hover {
   color: #111;
 }
 
 .button:active {
   transform: translate(2px, 2px);
   box-shadow: 4px 4px 0 var(--border);
+}
+
+html[data-browser="chrome"] [data-only="firefox"],
+html[data-browser="firefox"] [data-only="chrome"],
+html:not([data-browser="chrome"], [data-browser="firefox"]) .also {
+  display: none;
 }
 
 .tag {
