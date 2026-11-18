@@ -8,6 +8,11 @@
     <title>Due Date Highlighter</title>
     <link rel="icon" href="img/icon-32.png">
     <link rel="stylesheet" href="style.css">
+    <script>
+      // Chromium-based browsers install from the Chrome Web Store. Unknown browsers keep both store links.
+      document.documentElement.dataset.browser = navigator.userAgent.includes("Firefox/") ? "firefox"
+        : navigator.userAgentData?.brands.some((b) => b.brand === "Chromium") ? "chrome" : "";
+    </script>
   </head>
   <body>
     <main>
@@ -17,15 +22,18 @@
         <p class="stripe" aria-hidden="true"><span class="red"></span><span class="orange"></span><span class="yellow"></span></p>
         <p class="tagline">Dates on the pages you choose, coloured by how close they are.</p>
         <p class="actions">
-          <a class="button" href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Install from the Chrome Web Store</a>
+          <a class="button primary" data-only="chrome" href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Install from the Chrome Web Store</a>
+          <a class="button primary" data-only="firefox" href="https://addons.mozilla.org/firefox/addon/due-date-highlighter-ext@nunofaria11/">Install from Firefox Add-ons</a>
           <a class="button" href="https://github.com/casteroid/due-date-highlighter-ext">Source on GitHub</a>
         </p>
+        <p class="note also" data-only="chrome">Also for Firefox, on <a href="https://addons.mozilla.org/firefox/addon/due-date-highlighter-ext@nunofaria11/">Firefox Add-ons</a>.</p>
+        <p class="note also" data-only="firefox">Also for Chrome, on the <a href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Chrome Web Store</a>.</p>
       </header>
 
       <section id="how">
         <h2>How it works</h2>
         <ol class="steps">
-          <li>Open the popup on a site and pick <strong>Enable on this site</strong> or <strong>Enable on this page only</strong>. Chrome asks for access to that origin only.</li>
+          <li>Open the popup on a site and pick <strong>Enable on this site</strong> or <strong>Enable on this page only</strong>. The browser asks for access to that origin only.</li>
           <li>Every date on the page gets a colour from a tier profile: <span class="tag red">Overdue</span> <span class="tag orange">Today</span> <span class="tag orange">Next 3 days</span> <span class="tag yellow">This week</span>. The <span class="tag">Later</span> tier is there too, switched off by default.</li>
           <li>Open the popup again to list every date on the page in order. Click one to jump to it, filter by tier, and switch formats on or off for that site.</li>
         </ol>
@@ -168,7 +176,7 @@
 
       <section id="privacy">
         <h2>Privacy</h2>
-        <p>The extension does nothing until you turn it on for a site or a single page from the popup. It then asks Chrome for access to that site only, and releases the access when you turn it off. Page text is read in your browser and never leaves it: no accounts, no analytics, no network requests.</p>
+        <p>The extension does nothing until you turn it on for a site or a single page from the popup. It then asks the browser for access to that site only, and releases the access when you turn it off. Page text is read in your browser and never leaves it: no accounts, no analytics, no network requests.</p>
         <p><a href="https://github.com/casteroid/due-date-highlighter-ext/blob/main/PRIVACY.md">Read the privacy policy</a></p>
       </section>
     </main>
@@ -177,9 +185,10 @@
       <p>
         <a href="https://github.com/casteroid/due-date-highlighter-ext">GitHub</a> ·
         <a href="https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof">Chrome Web Store</a> ·
+        <a href="https://addons.mozilla.org/firefox/addon/due-date-highlighter-ext@nunofaria11/">Firefox Add-ons</a> ·
         <a href="https://github.com/casteroid/due-date-highlighter-ext/issues">Issues</a>
       </p>
-      <p>No cookies and no tracking on this page either. Its one script writes today's dates into the demo.</p>
+      <p>No cookies and no tracking on this page either. Its scripts pick the store link for your browser and write today's dates into the demo.</p>
     </footer>
     <script>
       // Hand-rolled rather than Intl: each output must match a format the extension recognises.
