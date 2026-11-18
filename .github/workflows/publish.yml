@@ -1,12 +1,12 @@
 name: Publish
 
-# Retries the Chrome Web Store upload for an existing release tag. Release already publishes; run this only when the
-# store job failed or was skipped. See https://github.com/casteroid/webext-release.
+# Retries the store uploads for an existing release tag. Release already publishes; run this only when a store job
+# failed or was skipped. See https://github.com/casteroid/webext-release.
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag to upload to the Chrome Web Store, e.g. v0.2.0"
+        description: "Release tag to upload to the stores, e.g. v0.3.0"
         type: string
         required: true
 
@@ -22,3 +22,7 @@ jobs:
     with:
       tag: ${{ inputs.tag }}
       chrome-package: "*.zip"
+      firefox-package: "*.xpi"
+    secrets:
+      AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+      AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
