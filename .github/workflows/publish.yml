@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: casteroid/webext-release/.github/workflows/publish.yml@6d7e6dc000cfd09f1642b0182ec57912c68b9d2c # v1.0.1
+    uses: casteroid/webext-release/.github/workflows/publish.yml@cce3e9d7c8428199bc30ea8b80f19d4533cac581 # v1.1.0
     with:
       tag: ${{ inputs.tag }}
       chrome-package: "*.zip"

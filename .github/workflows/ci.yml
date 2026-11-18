@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
 
       - name: Check commit messages
-        uses: casteroid/webext-release/lint-commits@6d7e6dc000cfd09f1642b0182ec57912c68b9d2c # v1.0.1
+        uses: casteroid/webext-release/lint-commits@cce3e9d7c8428199bc30ea8b80f19d4533cac581 # v1.1.0
 
       - run: npm test
 
@@ -33,6 +33,6 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: extension-zip
-          path: release/*.zip
+          name: extension-packages
+          path: release/*
           if-no-files-found: error

@@ -6,18 +6,19 @@ The workflows here are thin callers of the shared ones in [casteroid/webext-rele
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `.github/workflows/ci.yml` | push to `main`, pull requests | Checks commit messages, runs tests, builds and uploads the zip as an artifact |
-| `.github/workflows/release.yml` | manual (Actions tab) | Runs `npm test`, picks the version, commits it, tags `vX.Y.Z`, creates the GitHub release with the zip, then uploads it to the Chrome Web Store |
+| `.github/workflows/ci.yml` | push to `main`, pull requests | Checks commit messages, runs tests, builds both packages and uploads them as an artifact |
+| `.github/workflows/release.yml` | manual (Actions tab) | Runs `npm test`, picks the version, commits it, tags `vX.Y.Z`, creates the GitHub release with the zip and the xpi, then uploads the zip to the Chrome Web Store |
 | `.github/workflows/publish.yml` | manual with a tag | Uploads an existing release to the Chrome Web Store again |
+| `.github/workflows/build.yml` | manual with a tag | Rebuilds the zip and/or the xpi of an existing release and keeps them as run artifacts; touches neither the release nor the stores |
 
-The package is `release/due-date-highlighter-<version>.zip`, built by `npm run package`.
+The packages are `release/due-date-highlighter-<version>.chrome.zip` and `release/due-date-highlighter-<version>.firefox.xpi`, built by `npm run package`. Releases up to v0.2.0 have only the Chrome package, named `due-date-highlighter-<version>.zip`; the `*.zip` pattern matches both names.
 
-The workflows pin webext-release to a full commit SHA, with the tag in a comment. Dependabot opens a pull request when a new tag is out; update all three files together.
+The workflows pin webext-release to a full commit SHA, with the tag in a comment. Dependabot opens a pull request when a new tag is out; update all four files together.
 
 ## Listing
 
 - Chrome Web Store: item `abeojlfjcpibpelopknihgfpplmkonof`, <https://chromewebstore.google.com/detail/due-date-highlighter/abeojlfjcpibpelopknihgfpplmkonof>.
-- Firefox Add-ons: not published. The release workflow passes no `firefox-package`, so it skips Firefox.
+- Firefox Add-ons: not published. Releases carry the xpi (add-on ID `due-date-highlighter-ext@nunofaria11`), but the release workflow passes no `firefox-package`, so it skips the AMO upload.
 
 Listing copy is in [`store/listing.md`](../store/listing.md); the icon and screenshots are in `src/icons/` and `store/screenshots/`. The privacy policy is [PRIVACY.md](../PRIVACY.md).
 
@@ -34,3 +35,5 @@ Done, following the [webext-release store setup](https://github.com/casteroid/we
 3. Watch the review in the Chrome dashboard. With `DEFAULT_PUBLISH` the version goes live as soon as it is approved.
 
 To retry the store upload for an existing release (for example after fixing a variable), run **Actions → Publish** with the tag, e.g. `v0.2.0`.
+
+To get the packages of an existing release rebuilt from its tag, run **Actions → Build** with the tag and pick the browsers. They are the `chrome-vX.Y.Z` and `firefox-vX.Y.Z` artifacts on the run page. Tags up to v0.2.0 have no Firefox build, so Firefox fails for them.

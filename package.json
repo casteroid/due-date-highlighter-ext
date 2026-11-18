@@ -13,7 +13,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "fixture": "node scripts/serve-fixture.mjs",
-    "package": "npm run build && mkdir -p release && rm -f release/*.zip && cd dist && zip -qrX ../release/due-date-highlighter-$npm_package_version.zip .",
+    "package": "npm run typecheck && rm -rf dist release && node scripts/build.mjs chrome && node scripts/build.mjs firefox",
     "site": "rm -rf _site && mkdir -p _site/img && cp -R site/. _site/ && cp store/screenshots/*.png _site/img/ && cp src/icons/icon-128.png src/icons/icon-32.png _site/img/"
   },
   "dependencies": {

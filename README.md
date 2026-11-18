@@ -7,11 +7,11 @@ Landing page: <https://casteroid.github.io/due-date-highlighter-ext/> (source in
 ## Build
 
 ```sh
-npm install        # Node 22.18 or newer
-npm run build      # type-checks, then bundles into dist/
-npm run dev        # rebuilds dist/ on every change (unminified, inline source maps)
-npm test           # vitest
-npm run package    # build and zip dist/ into release/due-date-highlighter-<version>.zip
+npm install            # Node 22.18 or newer
+npm run build chrome   # or firefox; type-checks, then bundles into dist/<vendor>/ and zips it into release/
+npm run dev chrome     # or firefox; rebuilds dist/<vendor>/ on every change (unminified, inline source maps)
+npm test               # vitest
+npm run package        # builds both: release/due-date-highlighter-<version>.chrome.zip and .firefox.xpi
 ```
 
 ## Contributing and releases
@@ -20,9 +20,17 @@ Commits follow Conventional Commits, which drive the version number: see [CONTRI
 
 ## Load it in Chrome
 
-1. Run `npm run build`.
-2. Open `chrome://extensions`, switch on **Developer mode**, click **Load unpacked** and pick the `dist/` folder.
+1. Run `npm run build chrome`.
+2. Open `chrome://extensions`, switch on **Developer mode**, click **Load unpacked** and pick the `dist/chrome/` folder.
 3. After a rebuild, click the reload icon on the extension card.
+
+## Load it in Firefox
+
+1. Run `npm run build firefox`.
+2. Open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on** and pick `dist/firefox/manifest.json`.
+3. After a rebuild, click **Reload** on the extension card.
+
+`src/manifest.json` is shared. Keys named `__chrome__x` or `__firefox__x` are kept as `x` for that browser only: Chrome gets a service worker, Firefox gets background scripts and its add-on ID.
 
 ## Try it on the fixture page
 

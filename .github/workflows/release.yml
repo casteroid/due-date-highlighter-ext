@@ -1,8 +1,8 @@
 name: Release
 
 # Started by hand from the Actions tab. The shared workflow works out the next version from Conventional Commits,
-# commits the version bump, tags it, creates a GitHub release with the extension zip, then uploads it to the Chrome
-# Web Store. See https://github.com/casteroid/webext-release.
+# commits the version bump, tags it, creates a GitHub release with the Chrome zip and the Firefox xpi, then uploads
+# the zip to the Chrome Web Store. See https://github.com/casteroid/webext-release.
 on:
   workflow_dispatch:
     inputs:
@@ -24,12 +24,12 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    uses: casteroid/webext-release/.github/workflows/release.yml@6d7e6dc000cfd09f1642b0182ec57912c68b9d2c # v1.0.1
+    uses: casteroid/webext-release/.github/workflows/release.yml@cce3e9d7c8428199bc30ea8b80f19d4533cac581 # v1.1.0
     with:
       manifest: src/manifest.json
       check: npm test
       package: npm run package
-      artifacts: release/*.zip
+      artifacts: release/*
       chrome-package: "*.zip"
       bump: ${{ inputs.bump }}
       dry-run: ${{ inputs.dry_run }}
